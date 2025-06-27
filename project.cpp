@@ -6,8 +6,7 @@
 
 using namespace std;
 
-// Carbon emission factors (kg CO2 per unit)
-// calculation
+
 const double CAR_EMISSION = 0.2;    // per km
 const double BUS_EMISSION = 0.1;    // per km
 const double TRAIN_EMISSION = 0.05; // per km
