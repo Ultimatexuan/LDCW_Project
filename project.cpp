@@ -54,22 +54,22 @@ double calculateTransportEmissions() {
     cout << "How do you typically commute to work/school?\n";
     cout << "1. Car\n2. Bus\n3. Train\n4. Bike\n5. Walk\n";
     cout << "Enter your choice (1-5): ";
-    
+
     int transportChoice;
     cin >> transportChoice;
-    
+
     if (transportChoice < 1 || transportChoice > 5) {
         cout << "Invalid choice. Defaulting to Car.\n";
         transportChoice = 1;
     }
-    
+
     cout << "What is your daily round-trip commute distance in km? ";
     double distance;
     cin >> distance;
-    
+
     double emissions = 0.0;
     string transportType;
-    
+
     switch(transportChoice) {
         case 1:
             emissions = distance * CAR_EMISSION;
@@ -92,10 +92,10 @@ double calculateTransportEmissions() {
             transportType = "walking";
             break;
     }
-    
-    cout << "🚦 Your daily commute by " << transportType << " produces " 
+
+    cout << "🚦 Your daily commute by " << transportType << " produces "
          << fixed << setprecision(2) << emissions << " kg of CO2.\n";
-    
+
     return emissions;
 }
 
@@ -105,22 +105,22 @@ double calculateDietEmissions() {
     cout << "How many meals per day typically contain meat? ";
     int meatMeals;
     cin >> meatMeals;
-    
+
     cout << "How many vegetarian meals (no meat but may contain dairy/eggs)? ";
     int vegMeals;
     cin >> vegMeals;
-    
+
     cout << "How many vegan meals (no animal products)? ";
     int veganMeals;
     cin >> veganMeals;
-    
-    double emissions = (meatMeals * MEAT_MEAL_EMISSION) + 
-                      (vegMeals * VEG_MEAL_EMISSION) + 
+
+    double emissions = (meatMeals * MEAT_MEAL_EMISSION) +
+                      (vegMeals * VEG_MEAL_EMISSION) +
                       (veganMeals * VEGAN_MEAL_EMISSION);
-    
-    cout << "🍴 Your daily diet produces " << fixed << setprecision(2) 
+
+    cout << "🍴 Your daily diet produces " << fixed << setprecision(2)
          << emissions << " kg of CO2.\n";
-    
+
     return emissions;
 }
 
@@ -130,12 +130,12 @@ double calculateEnergyEmissions() {
     cout << "What is your average daily electricity consumption in kWh? ";
     double electricity;
     cin >> electricity;
-    
+
     double emissions = electricity * ELECTRICITY_EMISSION;
-    
-    cout << "⚡ Your daily energy use produces " << fixed << setprecision(2) 
+
+    cout << "⚡ Your daily energy use produces " << fixed << setprecision(2)
          << emissions << " kg of CO2.\n";
-    
+
     return emissions;
 }
 
@@ -143,23 +143,23 @@ double calculateEnergyEmissions() {
 void displayResults(double transport, double diet, double energy) {
     double total = transport + diet + energy;
     double yearly = total * 365;
-    
+
     cout << "\n============================================\n";
     cout << "🌱 YOUR CARBON FOOTPRINT RESULTS 🌍\n";
     cout << "============================================\n\n";
-    
+
     cout << "🚗 Transportation: " << transport << " kg CO2/day\n";
     cout << "🍽️ Diet: " << diet << " kg CO2/day\n";
     cout << "💡 Energy: " << energy << " kg CO2/day\n";
     cout << "--------------------------------------------\n";
     cout << "🌍 TOTAL DAILY FOOTPRINT: " << total << " kg CO2\n";
     cout << "📅 YEARLY FOOTPRINT: " << yearly << " kg CO2\n\n";
-    
+
     // Compare to averages
     double avgDaily = 16.0; // Average daily footprint in kg CO2 (varies by country)
-    cout << "The average person in developed countries produces about " 
+    cout << "The average person in developed countries produces about "
          << avgDaily << " kg CO2 per day.\n";
-    
+
     if (total < avgDaily * 0.7) {
         cout << "🎉 Great job! Your footprint is lower than average!\n";
     } else if (total > avgDaily * 1.3) {
@@ -167,43 +167,43 @@ void displayResults(double transport, double diet, double energy) {
     } else {
         cout << "🔄 Your footprint is about average. You can still improve!\n";
     }
-    
+
     // Display personalized tips
     cout << "\n============================================\n";
     cout << "💡 PERSONALIZED ECO TIPS 🌿\n";
     cout << "============================================\n\n";
-    
+
     cout << "🚦 TRANSPORT TIP:\n";
     cout << transportTips[rand() % transportTips.size()] << "\n\n";
-    
+
     cout << "🍴 DIET TIP:\n";
     cout << dietTips[rand() % dietTips.size()] << "\n\n";
-    
+
     cout << "⚡ ENERGY TIP:\n";
     cout << energyTips[rand() % energyTips.size()] << "\n\n";
-    
+
     cout << "Small changes can make a big difference over time! 🌎✨\n";
 }
 
 int main() {
     // Seed random number generator for tips
     srand(time(0));
-    
+
     // Display welcome message
     displayWelcome();
-    
+
     // Calculate emissions in each category
     double transport = calculateTransportEmissions();
     double diet = calculateDietEmissions();
     double energy = calculateEnergyEmissions();
-    
+
     // Display results
     displayResults(transport, diet, energy);
-    
+
     // End of program
     cout << "\nPress enter to exit...";
     cin.ignore();
     cin.get();
-    
+
     return 0;
 }
