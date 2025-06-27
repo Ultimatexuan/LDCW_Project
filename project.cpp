@@ -47,7 +47,7 @@ void displayWelcome() {
     cout << "and provide personalized tips to reduce your environmental impact.\n\n";
 }
 
-// Function to calculate transport emissions
+
 double calculateTransportEmissions() {
     cout << "\n🚗 TRANSPORTATION 🚌\n";
     cout << "How do you typically commute to work/school?\n";
